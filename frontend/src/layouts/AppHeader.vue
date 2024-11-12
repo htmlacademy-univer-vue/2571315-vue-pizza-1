@@ -13,3 +13,7 @@
     </div>
   </header>
 </template>
+
+<style scoped lang="scss">
+@import "@/assets/scss/layout/header.scss";
+</style>

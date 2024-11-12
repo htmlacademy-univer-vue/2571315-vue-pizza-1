@@ -9,9 +9,12 @@
       <b>«Vue.js для опытных разработчиков».</b>
     </p>
   </div>
+  <AppHeader />
+  <HomeView />
 </template>
 
 <style lang="scss">
+@import "@/assets/scss/layout/main.scss";
 @import "@/assets/scss/app.scss";
 body {
   justify-content: center;
@@ -60,3 +63,7 @@ body {
 }
 
 </style>
+<script setup>
+import HomeView from "@/layouts/HomeView.vue";
+import AppHeader from "@/layouts/AppHeader.vue";
+</script>
