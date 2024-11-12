@@ -58,8 +58,8 @@
                 <p>Начинка:</p>
 
                 <ul class="ingredients__list">
-                  <li v-for="ingridient in ingredients" :key="ingridient.id" class="ingredients__item">
-                    <span class="filling filling--mushrooms">{{ingridient.name}}</span>
+                  <li v-for="ingredient in ingredients" :key="ingredient.id" class="ingredients__item">
+                    <span class="filling filling--mushrooms">{{ingredient.name}}</span>
 
                     <div class="counter counter--orange ingredients__counter">
                       <button type="button" class="counter__button counter__button--minus" disabled>
@@ -113,3 +113,19 @@ import sizes from '@/mocks/sizes.json'
 import sauces from '@/mocks/sauces.json'
 import ingredients from '@/mocks/ingredients.json'
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/layout/content';
+@import '@/assets/scss/layout/sheet';
+@import '@/assets/scss/blocks/dough';
+@import '@/assets/scss/blocks/ingredients';
+@import '@/assets/scss/blocks/pizza';
+@import '@/assets/scss/blocks/radio';
+@import '@/assets/scss/blocks/diameter';
+@import '@/assets/scss/blocks/input';
+@import '@/assets/scss/blocks/select';
+@import '@/assets/scss/blocks/button';
+@import '@/assets/scss/blocks/radio';
+@import '@/assets/scss/blocks/counter';
+@import '@/assets/scss/blocks/title';
+</style>
