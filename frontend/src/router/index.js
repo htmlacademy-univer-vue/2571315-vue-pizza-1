@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('@/views/AuthView.vue'),
+      component: () => import('@/Views/LoginView.vue'),
     },
     {
       path: '/',
@@ -25,12 +25,17 @@ const router = createRouter({
         {
           path: 'history',
           name: 'history',
-          component: () => import('@/views/HistoryView.vue'),
+          component: () => import('@/Views/OrdersView.vue'),
         },
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/views/AuthView.vue'),
+          component: () => import('@/Views/LoginView.vue'),
+        },
+        {
+          path: 'user',
+          name: 'user',
+          component: () => import('@/Views/UserView.vue'),
         }
       ]
     }
