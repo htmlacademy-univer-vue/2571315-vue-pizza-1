@@ -28,7 +28,7 @@ import ingredients from "@/mocks/ingredients.json";
 import {ref} from "vue";
 
 const pizza = ref({
-  dough: "thin",
+  dough: "light",
   size: "small",
   sauce: 'cream',
   ingredients: ingredients,
@@ -37,5 +37,5 @@ const pizza = ref({
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/app.scss";
+@import "@/assets/scss/app";
 </style>

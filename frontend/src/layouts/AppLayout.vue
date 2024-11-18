@@ -1,9 +1,10 @@
 <template>
-  <div>Nothing</div>
+  <AppHeader />
+  <router-view/>
 </template>
 
-<script>
-
+<script setup>
+import AppHeader from "@/layouts/AppHeader.vue";
 </script>
 
 <style>

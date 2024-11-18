@@ -24,7 +24,7 @@
 <script setup>
 import doughs from "@/mocks/dough.json";
 
-const chosenDough = defineModel({type: String, default: 'thin'});
+const chosenDough = defineModel({type: String});
 </script>
 
 
