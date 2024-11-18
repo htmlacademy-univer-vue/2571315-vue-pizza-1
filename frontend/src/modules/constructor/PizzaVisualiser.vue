@@ -2,16 +2,17 @@
   <div class="content__pizza">
     <label class="input">
       <span class="visually-hidden">Название пиццы</span>
-      <input type="text" name="pizza_name" placeholder="Введите название пиццы">
+      <input type="text" placeholder="Введите название пиццы" v-model="pizzaName">
     </label>
 
     <AppDrop @drop="dropHandler">
       <div class="content__constructor">
         <div class="pizza pizza--foundation--big-tomato">
           <div class="pizza__wrapper">
-            <div v-for="ingredient in actualIngredients"
-                 class="pizza__filling pizza__filling--ananas"
-                 :class="'pizza__filling--' + ingredient"
+            <div v-for="ingredient in pizzaIngredients.filter(item => item.count > 0)"
+                 :key="ingredient.id"
+                 class="pizza__filling"
+                 :class="'pizza__filling--' + ingredient.value"
             />
           </div>
         </div>
@@ -27,12 +28,12 @@
 
 <script setup>
 import AppDrop from "@/common/components/AppDrop.vue";
-import {ref} from "vue";
 
-const actualIngredients = ref(new Set())
-const dropHandler = (ingridient) => {
-  actualIngredients.value.add(ingridient);
-  console.log(ingridient);
+const pizzaName = defineModel('name',{ type: String });
+const pizzaIngredients = defineModel('ingredients',{ type: Array });
+const dropHandler = (ingredient) => {
+  pizzaIngredients.value[ingredient.id - 1].count++;
+  console.log(ingredient);
 };
 </script>
 

@@ -5,7 +5,7 @@
 
       <div class="sheet__content diameter">
         <label v-for="size in sizes" :key="size.id" class="diameter__input" :class="'diameter__input--' + size.value">
-          <input type="radio" name="diameter" value="small" class="visually-hidden">
+          <input type="radio" name="diameter" :value="size.value" v-model="chosenSize" class="visually-hidden">
           <span>{{size.name}}</span>
         </label>
       </div>
@@ -15,6 +15,9 @@
 
 <script setup>
 import sizes from "@/mocks/sizes.json";
+
+const chosenSize = defineModel({type: String, default: 'small'})
+const pizzaIngredients = defineModel('ingredients',{ type: Set });
 </script>
 
 <style scoped lang="scss">
