@@ -11,7 +11,11 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
             <div class="sheet__content dough">
-              <label v-for="dough in doughs" :key="dough.id" class="dough__input dough__input--light">
+              <label v-for="dough in doughs"
+                     :key="dough.id"
+                     class="dough__input"
+                     :class="`dough__input--${dough.value}`"
+              >
                 <input type="radio" name="dought" value="light" class="visually-hidden" checked>
                 <b>{{ dough.name }}</b>
                 <span>{{dough.description}}</span>
@@ -27,7 +31,7 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label v-for="size in sizes" :key="size.id" class="diameter__input diameter__input--small">
+              <label v-for="size in sizes" :key="size.id" class="diameter__input" :class="'diameter__input--' + size.value">
                 <input type="radio" name="diameter" value="small" class="visually-hidden">
                 <span>{{size.name}}</span>
               </label>
@@ -45,12 +49,8 @@
                 <p>Основной соус:</p>
 
                 <label v-for="sauce in sauces" :key="sauce.id" class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="tomato" checked>
-                  <span>Томатный</span>
-                </label>
-                <label class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="creamy">
-                  <span>Сливочный</span>
+                  <input type="radio" name="sauce" :value="sauce.name" checked>
+                  <span>{{sauce.name}}</span>
                 </label>
               </div>
 
@@ -58,8 +58,13 @@
                 <p>Начинка:</p>
 
                 <ul class="ingredients__list">
-                  <li v-for="ingridient in ingredients" :key="ingridient.id" class="ingredients__item">
-                    <span class="filling filling--mushrooms">{{ingridient.name}}</span>
+                  <li v-for="ingredient in ingredients" :key="ingredient.id" class="ingredients__item">
+                    <span
+                        :class="'filling--' + ingredient.value"
+                        class="filling"
+                    >
+                      {{ingredient.name}}
+                    </span>
 
                     <div class="counter counter--orange ingredients__counter">
                       <button type="button" class="counter__button counter__button--minus" disabled>
@@ -112,4 +117,26 @@ import doughs from '@/mocks/dough.json'
 import sizes from '@/mocks/sizes.json'
 import sauces from '@/mocks/sauces.json'
 import ingredients from '@/mocks/ingredients.json'
+import AppDrag from "@/common/components/AppDrag.vue";
+import AppDrop from "@/common/components/AppDrop.vue";
+const dropHandler = (transferData) => {
+  console.log(transferData);
+};
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/layout/content';
+@import '@/assets/scss/layout/sheet';
+@import '@/assets/scss/blocks/dough';
+@import '@/assets/scss/blocks/ingredients';
+@import '@/assets/scss/blocks/pizza';
+@import '@/assets/scss/blocks/radio';
+@import '@/assets/scss/blocks/diameter';
+@import '@/assets/scss/blocks/input';
+@import '@/assets/scss/blocks/select';
+@import '@/assets/scss/blocks/button';
+@import '@/assets/scss/blocks/radio';
+@import '@/assets/scss/blocks/counter';
+@import '@/assets/scss/blocks/title';
+@import '@/assets/scss/blocks/filling';
+</style>
