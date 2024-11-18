@@ -117,6 +117,11 @@ import doughs from '@/mocks/dough.json'
 import sizes from '@/mocks/sizes.json'
 import sauces from '@/mocks/sauces.json'
 import ingredients from '@/mocks/ingredients.json'
+import AppDrag from "@/common/components/AppDrag.vue";
+import AppDrop from "@/common/components/AppDrop.vue";
+const dropHandler = (transferData) => {
+  console.log(transferData);
+};
 </script>
 
 <style lang="scss" scoped>
