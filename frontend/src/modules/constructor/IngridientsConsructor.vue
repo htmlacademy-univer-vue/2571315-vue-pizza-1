@@ -11,8 +11,8 @@
           <p>Начинка:</p>
 
           <ul class="ingredients__list">
-            <li v-for="ingredient in ingredients" :key="ingredient.id" class="ingredients__item">
-              <AppDrag :transfer-data="ingredient.value">
+            <li v-for="ingredient in pizzaIngredients" :key="ingredient.id" class="ingredients__item">
+              <AppDrag :transfer-data="ingredient">
                 <span
                     :class="'filling--' + ingredient.value"
                     class="filling"
@@ -22,11 +22,11 @@
               </AppDrag>
 
               <div class="counter counter--orange ingredients__counter">
-                <button type="button" class="counter__button counter__button--minus" disabled>
+                <button type="button" class="counter__button counter__button--minus" @click="ingredient.count > 0? ingredient.count-- : ''">
                   <span class="visually-hidden">Меньше</span>
                 </button>
-                <input type="text" name="counter" class="counter__input" value="0">
-                <button type="button" class="counter__button counter__button--plus">
+                <input type="text" name="counter" class="counter__input" :min="0" v-model="ingredient.count">
+                <button type="button" class="counter__button counter__button--plus" @click="ingredient.count ++">
                   <span class="visually-hidden">Больше</span>
                 </button>
               </div>
@@ -43,8 +43,9 @@
 
 <script setup>
 import AppDrag from "@/common/components/AppDrag.vue";
-import ingredients from "@/mocks/ingredients.json";
 import SauceConstructor from "@/modules/constructor/SauceConstructor.vue";
+
+const pizzaIngredients = defineModel({ type: Array });
 </script>
 
 <style lang="scss">

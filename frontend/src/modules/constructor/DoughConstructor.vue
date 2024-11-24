@@ -10,7 +10,7 @@
                class="dough__input"
                :class="`dough__input--${dough.value}`"
         >
-          <input type="radio" name="dought" value="light" class="visually-hidden" checked>
+          <input type="radio" name="dought" :value="dough.value" class="visually-hidden" v-model="chosenDough">
           <b>{{ dough.name }}</b>
           <span>{{dough.description}}</span>
         </label>
@@ -23,6 +23,8 @@
 
 <script setup>
 import doughs from "@/mocks/dough.json";
+
+const chosenDough = defineModel({type: String, default: 'thin'});
 </script>
 
 
