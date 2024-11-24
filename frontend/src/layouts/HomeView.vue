@@ -37,13 +37,5 @@ const pizza = ref({
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/layout/content';
-@import '@/assets/scss/layout/sheet';
-@import '@/assets/scss/blocks/radio';
-@import '@/assets/scss/blocks/input';
-@import '@/assets/scss/blocks/select';
-@import '@/assets/scss/blocks/button';
-@import '@/assets/scss/blocks/radio';
-@import '@/assets/scss/blocks/counter';
-@import '@/assets/scss/blocks/title';
+@import "@/assets/scss/app.scss";
 </style>
