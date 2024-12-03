@@ -14,7 +14,7 @@
             <li v-for="ingredient in pizzaIngredients" :key="ingredient.id" class="ingredients__item">
               <AppDrag :transfer-data="ingredient">
                 <span
-                    :class="'filling--' + ingredient.value"
+                    :class="`filling--${ingredient.value}`"
                     class="filling"
                 >
                   {{ingredient.name}}
