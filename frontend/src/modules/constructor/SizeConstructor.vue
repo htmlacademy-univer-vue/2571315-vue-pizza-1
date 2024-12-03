@@ -4,8 +4,8 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
 
       <div class="sheet__content diameter">
-        <label v-for="size in sizes" :key="size.id" class="diameter__input" :class="'diameter__input--' + size.value">
-          <input type="radio" name="diameter" :value="size.value" v-model="chosenSize" class="visually-hidden">
+        <label v-for="size in pizzaComponents.sizes" :key="size.id" class="diameter__input" :class="`diameter__input--${size.value}`">
+          <input type="radio" name="diameter" :value="size" v-model="chosenSize" class="visually-hidden">
           <span>{{size.name}}</span>
         </label>
       </div>
@@ -14,10 +14,12 @@
 </template>
 
 <script setup>
-import sizes from "@/mocks/sizes.json";
+import {storeToRefs} from "pinia";
+import {usePizzaStore} from "@/store/PizzaComponetsStore";
 
 const chosenSize = defineModel({type: String, default: 'small'})
-const pizzaIngredients = defineModel('ingredients',{ type: Set });
+
+const {pizzaComponents} = storeToRefs(usePizzaStore());
 </script>
 
 <style scoped lang="scss">
