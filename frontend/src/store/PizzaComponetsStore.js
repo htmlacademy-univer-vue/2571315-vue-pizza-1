@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 import {ref} from "vue";
 import axios from "axios";
+import {normalize} from "@/common/helpers/normalize";
 
 export const usePizzaStore = defineStore('pizza', () =>{
     // State
+
     const pizzaComponents = ref({
         dough: [],
         ingredients: [],
-        misc: [],
         sizes: [],
         sauces: []
     })
@@ -15,7 +16,7 @@ export const usePizzaStore = defineStore('pizza', () =>{
     // Actions
 
     const fetchAll = async () => {
-        const pizza = ['dough', 'ingredients', 'misc', 'sizes', 'sauces'];
+        const pizza = ['dough', 'ingredients', 'sizes', 'sauces'];
 
         try {
             const results =
@@ -23,7 +24,7 @@ export const usePizzaStore = defineStore('pizza', () =>{
                     pizza.map(item => axios.get(`${import.meta.env.VITE_API_BASE_URL}/${item}`))
                 );
             pizza.forEach((item, index) => {
-                pizzaComponents.value[item] = results[index].data
+                pizzaComponents.value[item] = normalize(results[index].data, item)
             });
         }
         catch (error) {
@@ -33,12 +34,8 @@ export const usePizzaStore = defineStore('pizza', () =>{
 
     // Getters
 
-    const getPizzaComponent = (component) => {
-        return pizzaComponents.value[component];
-    }
-
     return {
         fetchAll,
-        getPizzaComponent
+        pizzaComponents,
     }
 });

@@ -5,13 +5,13 @@
 
       <div class="sheet__content ingredients">
 
-        <SauceConstructor />
+        <SauceConstructor v-model="pizzaCart.sauce" />
 
         <div class="ingredients__filling">
           <p>Начинка:</p>
 
           <ul class="ingredients__list">
-            <li v-for="ingredient in pizzaIngredients" :key="ingredient.id" class="ingredients__item">
+            <li v-for="ingredient in pizzaComponents.ingredients" :key="ingredient.id" class="ingredients__item">
               <AppDrag :transfer-data="ingredient">
                 <span
                     :class="`filling--${ingredient.value}`"
@@ -37,8 +37,20 @@
 import AppDrag from "@/common/components/AppDrag.vue";
 import SauceConstructor from "@/modules/constructor/SauceConstructor.vue";
 import AppCounter from "@/common/components/AppCounter.vue";
+import {storeToRefs} from "pinia";
+import {usePizzaStore} from "@/store/PizzaComponetsStore";
+import {useDataStore} from "@/store/DataStore";
+import {watch} from "vue";
+
+const {pizzaComponents} = storeToRefs(usePizzaStore());
+
+const {pizzaCart} = storeToRefs(useDataStore());
 
 const pizzaIngredients = defineModel({ type: Array });
+
+watch(pizzaComponents.value, () => {
+  pizzaIngredients.value = pizzaComponents.value.ingredients.filter(item => item.count > 0)
+})
 </script>
 
 <style lang="scss">
