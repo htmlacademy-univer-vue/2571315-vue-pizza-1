@@ -25,7 +25,10 @@ import SizeConstructor from "@/modules/constructor/SizeConstructor.vue";
 import IngridientsConsructor from "@/modules/constructor/IngridientsConsructor.vue";
 import PizzaVisualiser from "@/modules/constructor/PizzaVisualiser.vue";
 import ingredients from "@/mocks/ingredients.json";
-import {ref} from "vue";
+import {onBeforeMount, ref} from "vue";
+import {usePizzaStore} from "@/store/PizzaStore";
+
+const {fetchAll} = usePizzaStore();
 
 const pizza = ref({
   dough: "light",
@@ -33,6 +36,10 @@ const pizza = ref({
   sauce: 'cream',
   ingredients: ingredients,
   name: ''
+})
+
+onBeforeMount(async () => {
+  await fetchAll();
 })
 </script>
 
