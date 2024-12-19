@@ -1,5 +1,5 @@
 <template>
-  <div :class="`counter counter--${color} ${component}__counter`">
+  <div :class="`counter ${component}__counter`">
     <button type="button" class="counter__button counter__button--minus" :disabled="counter <= 0" @click="counter > 0? counter-- : ''">
       <span class="visually-hidden">Меньше</span>
     </button>
