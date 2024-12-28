@@ -20,7 +20,6 @@
                   {{ingredient.name}}
                 </span>
               </AppDrag>
-
              <AppCounter v-model="ingredient.count" />
 
             </li>
