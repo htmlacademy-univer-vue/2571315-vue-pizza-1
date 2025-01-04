@@ -9,7 +9,7 @@
       <div class="content__constructor">
         <div :class="`pizza pizza--foundation--${pizzaCart.dough.value ?? 'light'}-${pizzaCart.sauce.value ?? 'creamy'}`">
           <div class="pizza__wrapper">
-            <div v-for="ingredient in pizzaIngredients"
+            <div v-for="ingredient in pizzaIngredients.filter(Boolean)"
                  :key="ingredient.id"
                  class="pizza__filling"
                  :class="[`pizza__filling--${ingredient.value}`, countClass.get(ingredient.count)]"
@@ -30,16 +30,25 @@
 import AppDrop from "@/common/components/AppDrop.vue";
 import {useDataStore} from "@/store/DataStore";
 import {storeToRefs} from "pinia";
+import {usePizzaStore} from "@/store/PizzaComponetsStore";
 
 const pizzaName = defineModel('name',{ type: String });
-const pizzaIngredients = defineModel('ingredients',{ type: Array });
+const pizzaIngredients = defineModel('ingredients',{ type: Array, default:[] });
 
 const {pizzaCart, getPrice} = storeToRefs(useDataStore());
-
+const {pizzaComponents} = storeToRefs(usePizzaStore());
 
 const countClass = new Map([[1, ''], [2, 'pizza__filling--second'], [3, 'pizza__filling--third']]);
 const dropHandler = (ingredient) => {
-  pizzaIngredients.value[ingredient.id - 1].count++;
+  if (pizzaIngredients.value[ingredient.id - 1]) {
+    if ( pizzaIngredients.value[ingredient.id - 1].count < 3) {
+      pizzaIngredients.value[ingredient.id - 1].count++;
+    }
+  }
+  else {
+    pizzaIngredients.value[ingredient.id - 1] = {...ingredient, count: 1};
+    pizzaComponents.value.ingredients[ingredient.id - 1].count = 1
+  }
 };
 </script>
 

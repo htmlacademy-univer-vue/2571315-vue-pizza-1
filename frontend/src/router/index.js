@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('@/views/LoginView.vue'),
     },
     {
+      path: '/popup',
+      name: 'popup',
+      component: () => import('@/views/PopupView.vue'),
+    },
+    {
       path: '/',
       component: () => import('@/layouts/AppLayout.vue'),
       children: [
@@ -30,7 +35,7 @@ const router = createRouter({
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/views/LoginView.vue'),
+          component: () => import('@/views/ProfileView.vue'),
         },
         {
           path: 'user',

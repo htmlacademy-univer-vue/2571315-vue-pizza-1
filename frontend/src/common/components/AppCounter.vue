@@ -12,6 +12,8 @@
 
 <script setup>
 
+import {watch} from "vue";
+
 const props = defineProps({
   color: {
     type: String,
