@@ -6,14 +6,14 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('@/Views/LoginView.vue'),
+      component: () => import('@/views/LoginView.vue'),
     },
     {
       path: '/',
       component: () => import('@/layouts/AppLayout.vue'),
       children: [
         {
-          path: 'pizza_constructor',
+          path: '',
           name: 'main',
           component: () => import('@/views/HomeView.vue'),
         },
@@ -25,21 +25,20 @@ const router = createRouter({
         {
           path: 'history',
           name: 'history',
-          component: () => import('@/Views/OrdersView.vue'),
+          component: () => import('@/views/OrdersView.vue'),
         },
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/Views/LoginView.vue'),
+          component: () => import('@/views/LoginView.vue'),
         },
         {
           path: 'user',
           name: 'user',
-          component: () => import('@/Views/UserView.vue'),
+          component: () => import('@/views/UserView.vue'),
         }
       ]
     }
   ],
 });
-
 export default router;
