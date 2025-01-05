@@ -1,7 +1,12 @@
 <template>
-  <router-view/>
+  <AppLayout>
+    <router-view />
+  </AppLayout>
 </template>
 
+<script setup>
+import AppLayout from "@/layouts/AppLayout.vue";
+</script>
 <style lang="scss">
 @import "@/assets/scss/layout/main.scss";
 @import "@/assets/scss/app.scss";
@@ -56,7 +61,4 @@ body {
     margin: 0 auto;
   }
 }
-
 </style>
-<script setup>
-</script>

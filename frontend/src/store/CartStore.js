@@ -1,31 +1,130 @@
-import { defineStore } from 'pinia';
-import axios from "axios";
-import {ref} from "vue";
+import { defineStore, storeToRefs } from "pinia";
+import { computed, ref } from "vue";
+import { useDataStore } from "./DataStore";
+import { usePizzaStore } from "./pizzaStore";
+// import { ordersService } from "../services";
+// import { useAuthStore } from "./authStore";
+// import { useProfileStore } from "./ProfileStore";
+// import router from "../router";
 
-export const useCartStore = defineStore('cart', () =>{
-    // State
+export const useCartStore = defineStore("cart", () => {
+  const { getEntity } = storeToRefs(useDataStore());
+//   const { getUserAttribute } = storeToRefs(useAuthStore());
 
-    const misc = ref([])
+  const initialCart = {
+    // phone: getUserAttribute.value("phone"),
+    address: {
+      street: "222",
+      building: "222",
+      flat: "222",
+      comment: "222",
+    },
+    pizzas: [],
+    misc: [
+      {
+        miscId: 1,
+        quantity: 0,
+      },
+      {
+        miscId: 2,
+        quantity: 0,
+      },
+      {
+        miscId: 3,
+        quantity: 0,
+      },
+    ],
+  };
 
-    // Actions
+  const cart = ref({ ...initialCart });
 
-    // Getters
-    const fetchMisc = async () => {
-        try {
-            const result =
-                await axios.get(`${import.meta.env.VITE_API_BASE_URL}/misc`);
+  const getSinglePizzaPrice = computed(() => (pizza) => {
+    let ingredientsSum = 0;
 
-            if (result.status >= 200 && result.status < 300) {
-                misc.value = result.data
-            }
-
-        }
-        catch (error) {
-            console.error(error)
-        }
+    if (pizza.ingredients) {
+      pizza.ingredients.forEach((ingredient) => {
+        ingredientsSum +=
+          getEntity.value(ingredient.ingredientId, "ingredient").price *
+          ingredient.quantity;
+      });
     }
-    return {
-        misc,
-        fetchMisc
-    }
+
+    return (
+      (getEntity.value(pizza.sauceId, "sauce").price +
+        getEntity.value(pizza.doughId, "dough").price +
+        ingredientsSum) *
+      getEntity.value(pizza.sizeId, "size").multiplier
+    );
+  });
+
+  const getOrderPrice = computed(() => (order = cart.value) => {
+    return (
+      order.pizzas.reduce(
+        (acc, pizza) => acc + getSinglePizzaPrice.value(pizza) * pizza.quantity,
+        0
+      ) +
+      order.misc.reduce(
+        (acc, misc) =>
+          acc + getEntity.value(misc.miscId, "misc").price * misc.quantity,
+        0
+      )
+    );
+  });
+
+  const addPizzaToCart = (name) => {
+    const { pizzaIngredients, pizzaDough, pizzaSauce, pizzaSize } = storeToRefs(
+      usePizzaStore()
+    );
+    const preparedIngredients = [];
+    Object.entries(pizzaIngredients.value).forEach(
+      ([ingredientId, quantity]) => {
+        if (quantity > 0) {
+          preparedIngredients.push({
+            ingredientId,
+            quantity,
+          });
+        }
+      }
+    ),
+      cart.value.pizzas.push({
+        name,
+        sauceId: pizzaSauce.value,
+        doughId: pizzaDough.value,
+        sizeId: pizzaSize.value,
+        quantity: 1,
+        ingredients: preparedIngredients,
+      });
+  };
+
+  const sendOrder = async () => {
+    // const profileStore = useProfileStore();
+    // const { fetchOrders, fetchAddresses } = profileStore;
+
+    // console.log(cart.value);
+
+    // const response = await ordersService.createOrder({
+    //   userId: getUserAttribute.value("id"),
+    //   ...cart.value,
+    // });
+
+    // if (response) {
+    //   cart.value = {
+    //     ...initialCart,
+    //   };
+
+    //   await fetchOrders();
+    //   await fetchAddresses();
+
+    //   router.push({ name: "Orders" });
+    // }
+  };
+
+  return {
+    cart,
+    getSinglePizzaPrice,
+    getOrderPrice,
+
+    addPizzaToCart,
+    sendOrder,
+  };
 });
