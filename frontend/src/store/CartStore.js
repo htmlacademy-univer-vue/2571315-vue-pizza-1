@@ -2,17 +2,17 @@ import { defineStore, storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import { useDataStore } from "./DataStore";
 import { usePizzaStore } from "./pizzaStore";
-// import { ordersService } from "../services";
-// import { useAuthStore } from "./authStore";
-// import { useProfileStore } from "./ProfileStore";
-// import router from "../router";
+import { ordersService } from "../services";
+import { useAuthStore } from "./AuthStore";
+import { useProfileStore } from "./ProfileStore";
+import router from "../router";
 
 export const useCartStore = defineStore("cart", () => {
   const { getEntity } = storeToRefs(useDataStore());
-//   const { getUserAttribute } = storeToRefs(useAuthStore());
+  const { getUserAttribute } = storeToRefs(useAuthStore());
 
   const initialCart = {
-    // phone: getUserAttribute.value("phone"),
+    phone: getUserAttribute.value("phone"),
     address: {
       street: "222",
       building: "222",
@@ -97,26 +97,24 @@ export const useCartStore = defineStore("cart", () => {
   };
 
   const sendOrder = async () => {
-    // const profileStore = useProfileStore();
-    // const { fetchOrders, fetchAddresses } = profileStore;
+    const profileStore = useProfileStore();
+    const { fetchOrders, fetchAddresses } = profileStore;
 
-    // console.log(cart.value);
+    const response = await ordersService.createOrder({
+      userId: getUserAttribute.value("id"),
+      ...cart.value,
+    });
 
-    // const response = await ordersService.createOrder({
-    //   userId: getUserAttribute.value("id"),
-    //   ...cart.value,
-    // });
+    if (response) {
+      cart.value = {
+        ...initialCart,
+      };
 
-    // if (response) {
-    //   cart.value = {
-    //     ...initialCart,
-    //   };
+      await fetchOrders();
+      await fetchAddresses();
 
-    //   await fetchOrders();
-    //   await fetchAddresses();
-
-    //   router.push({ name: "Orders" });
-    // }
+      router.push({ name: "Orders" });
+    }
   };
 
   return {
