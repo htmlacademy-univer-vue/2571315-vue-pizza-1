@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HeaderLayout from "@/layouts/HeaderLayout.vue";
 import SidebarLayout from "@/layouts/SidebarLayout.vue";
+import { middlewarePipeline, isAuthenticated } from "@/middlewares";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,7 @@ const router = createRouter({
       component: () => import("@/views/HomeView.vue"),
       meta: {
         layout: HeaderLayout,
+        middlewares: [isAuthenticated],
       },
     },
     {
@@ -29,6 +31,7 @@ const router = createRouter({
       component: () => import("@/views/CartView.vue"),
       meta: {
         layout: HeaderLayout,
+        middlewares: [isAuthenticated],
       },
     },
     {
@@ -37,6 +40,7 @@ const router = createRouter({
       component: () => import("@/views/OrdersView.vue"),
       meta: {
         layout: SidebarLayout,
+        middlewares: [isAuthenticated],
       },
     },
     {
@@ -45,8 +49,11 @@ const router = createRouter({
       component: () => import("@/views/ProfileView.vue"),
       meta: {
         layout: SidebarLayout,
+        middlewares: [isAuthenticated],
       },
     },
   ],
 });
+
+middlewarePipeline(router);
 export default router;

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-// import { setToken, removeToken } from "@/services/tokenManager";
+import { setToken, removeToken } from "@/services/tokenManager";
 import { ref, computed } from "vue";
-// import { authService } from "../services";
+import { authService } from "../services";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref(null);
@@ -15,24 +15,24 @@ export const useAuthStore = defineStore("auth", () => {
   });
 
   const login = async (email, password) => {
-    // try {
-    //   const data = await authService.login(email, password);
+    try {
+      const data = await authService.login(email, password);
 
-    //   setToken(data.token);
-    //   await getMe();
-    // } catch (e) {
-    //   return e.message;
-    // }
+      setToken(data.token);
+      await getMe();
+    } catch (e) {
+      return e.message;
+    }
   };
 
   const getMe = async () => {
-    // user.value = await authService.whoAmI();
+    user.value = await authService.whoAmI();
   };
 
   const logout = async () => {
-    // await authService.logout();
-    // user.value = null;
-    // removeToken();
+    await authService.logout();
+    user.value = null;
+    removeToken();
   };
 
   return {
