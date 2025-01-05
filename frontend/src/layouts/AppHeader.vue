@@ -51,7 +51,7 @@ const { getOrderPrice } = storeToRefs(useCartStore());
 
 const logoutClickHandler = async () => {
   await logout();
-  await router.push({ name: "SignIn" });
+  await router.push({ name: "auth" });
 };
 
 </script>
