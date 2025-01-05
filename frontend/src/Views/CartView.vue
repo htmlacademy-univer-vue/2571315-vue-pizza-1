@@ -203,4 +203,5 @@ const { getEntity } = storeToRefs(useDataStore());
 @import "@/assets/scss/layout/container";
 @import "@/assets/scss/layout/main";
 @import "@/assets/scss/layout/layout-form";
+@import "@/assets/scss/blocks/footer";
 </style>
