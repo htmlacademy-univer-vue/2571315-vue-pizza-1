@@ -113,7 +113,7 @@ export const useCartStore = defineStore("cart", () => {
       await fetchOrders();
       await fetchAddresses();
 
-      router.push({ name: "Orders" });
+      router.push({ name: "history" });
     }
   };
 
