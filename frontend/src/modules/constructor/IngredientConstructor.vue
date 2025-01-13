@@ -57,7 +57,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useDataStore } from "../../store/dataStore";
+import { useDataStore } from "@/store";
 import CustomTitle from "@/common/components/CustomTitle.vue";
 import AppDrag from "@/common/components/AppDrag.vue";
 import AppCounter from "@/common/components/AppCounter.vue";

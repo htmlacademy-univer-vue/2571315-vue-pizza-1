@@ -25,7 +25,7 @@
 <script setup>
 import CustomTitle from "@/common/components/CustomTitle.vue";
 import { computed } from "vue";
-import { useDataStore } from "../../store/dataStore";
+import { useDataStore } from "@/store";
 import { storeToRefs } from "pinia";
 
 const { sizeOptions: sizes, getEntityValue } = storeToRefs(useDataStore());

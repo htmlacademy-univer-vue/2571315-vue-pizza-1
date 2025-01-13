@@ -1,6 +1,6 @@
 import { defineStore, storeToRefs } from "pinia";
 import { ref } from "vue";
-import { useDataStore } from "./DataStore";
+import { useDataStore } from "./dataStore";
 import { computed } from "vue";
 
 export const usePizzaStore = defineStore("pizza", () => {
