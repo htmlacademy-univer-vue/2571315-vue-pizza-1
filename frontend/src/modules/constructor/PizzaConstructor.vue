@@ -58,11 +58,11 @@
 
 <script setup>
 import AppDrop from "@/common/components/AppDrop.vue";
-import { useDataStore } from "../../store/dataStore";
+import { useDataStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { usePizzaStore } from "../../store/pizzaStore";
+import { usePizzaStore } from "@/store";
 import { ref } from "vue";
-import { useCartStore } from "../../store/cartStore";
+import { useCartStore } from "@/store";
 import router from "../../router";
 
 defineProps({

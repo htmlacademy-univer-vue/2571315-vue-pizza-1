@@ -1,10 +1,10 @@
 import { defineStore, storeToRefs } from "pinia";
 import { computed, ref } from "vue";
-import { useDataStore } from "./DataStore";
+import { useDataStore } from "./dataStore";
 import { usePizzaStore } from "./pizzaStore";
 import { ordersService } from "../services";
-import { useAuthStore } from "./AuthStore";
-import { useProfileStore } from "./ProfileStore";
+import { useAuthStore } from "./authStore";
+import { useProfileStore } from "./profileStore";
 import router from "../router";
 
 export const useCartStore = defineStore("cart", () => {

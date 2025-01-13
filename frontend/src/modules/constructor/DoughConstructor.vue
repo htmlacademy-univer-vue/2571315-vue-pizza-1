@@ -27,7 +27,7 @@
 import CustomTitle from "@/common/components/CustomTitle.vue";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
-import { useDataStore } from "../../store/dataStore";
+import { useDataStore } from "@/store";
 
 const { doughOptions, getEntityValue } = storeToRefs(useDataStore());
 

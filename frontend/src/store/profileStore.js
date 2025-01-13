@@ -1,10 +1,10 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { addressesService, ordersService } from "../services";
-import { useDataStore } from "./DataStore";
-import { useCartStore } from "./CartStore";
+import { useDataStore } from "./dataStore";
+import { useCartStore } from "./cartStore";
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "./AuthStore";
+import { useAuthStore } from "./authStore";
 
 export const useProfileStore = defineStore("profile", () => {
   const { getEntity } = storeToRefs(useDataStore());
